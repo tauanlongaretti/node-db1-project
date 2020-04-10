@@ -16,6 +16,19 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:id", (req, res) => {
+    const {id} = req.params;
+
+    db("accounts")
+    .where({ id })
+    .then((account) => {
+        res.json(account);
+    })
+    .catch((err) => {
+        res.status(500).json({ message: "there was an error retrieving the account", err })
+    })
+})
+
 router.post("/", (req, res) => {
   const accountData = req.body;
 
